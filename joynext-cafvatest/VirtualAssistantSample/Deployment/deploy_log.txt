@@ -1,0 +1,1 @@
+{"error":{"code":"InvalidTemplateDeployment","message":"The template deployment 'template' is not valid according to the validation procedure. The tracking id is '1fb4ccb3-b750-4df8-acac-7bf7fe560e14'. See inner errors for details.","details":[{"code":"InvalidApiSetId","message":"The account type 'QnAMaker' is either invalid or unavailable in given region."}]}}

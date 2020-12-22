@@ -1,0 +1,12 @@
+The following libraries can be redistributed if you are using the Speech Devices SDK,
+subject to the license (license.md).
+
+libMicrosoft.CognitiveServices.Speech.extension.pma.so
+libpma.so
+libunimic_runtime.so
+Microsoft.CognitiveServices.Speech.extension.pma.dll
+pma.dll
+unimic_runtime.dll
+
+Depending on your usage, you only need to redistribute a subset of the above.
+

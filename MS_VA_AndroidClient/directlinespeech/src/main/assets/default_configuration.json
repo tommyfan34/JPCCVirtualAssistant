@@ -1,0 +1,13 @@
+{
+  "SpeechSubscriptionKey": "dabeddb9c188473096e539a8aa150800",
+  "SpeechRegion": "westus2",
+  "CustomCommandsAppId": "",
+  "CustomVoiceDeploymentIds": "",
+  "CustomSREndpointId": "",
+  "SpeechSDKLogEnabled": false,
+  "UserId": "android",
+  "UserName": "Android",
+  "SRLanguage": "en-US",
+  "Keyword": "computer",
+  "LinkedAccountEndpoint": ""
+}
