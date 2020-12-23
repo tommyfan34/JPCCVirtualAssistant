@@ -414,6 +414,49 @@ az login
 
 <font color="red">注意：之后可能还有bug，需要解决</font>
 
+## 对VA添加自定义LUIS回复
+
+1. 在VA项目文件夹下的Services/GeneralLUIS.cs添加一个Intent注册
+
+   ![image-20201223114851386](%E5%BE%AE%E8%BD%AFVA%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95_%E6%96%B0.assets/image-20201223114851386.png)
+
+2. 在Dialogs/MainDialog.cs下添加如下代码，以设置当LUIS识别的意图为Congrat时所需要作出的回应
+
+   ```csharp
+   case GeneralLuis.Intent.Congrat:
+       {
+           await innerDc.Context.SendActivityAsync(_templateManager.GenerateActivityForLocale("CongratMessage", userProfile), cancellationToken);
+           await innerDc.RepromptDialogAsync(cancellationToken);
+           interrupted = true;
+           break;
+       }
+   ```
+
+   ![image-20201223115223972](%E5%BE%AE%E8%BD%AFVA%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95_%E6%96%B0.assets/image-20201223115223972.png)
+
+```csharp
+case GeneralLuis.Intent.Congrat:
+    {
+        await innerDc.Context.SendActivityAsync(_templateManager.GenerateActivityForLocale("CongratMessage", userProfile), cancellationToken);
+        await innerDc.RepromptDialogAsync(cancellationToken);
+        interrupted = true;
+        break;
+    }
+```
+
+![image-20201223115323829](%E5%BE%AE%E8%BD%AFVA%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95_%E6%96%B0.assets/image-20201223115323829.png)
+
+在Responses/MainResponses.zh-cn.lg加入对CongratMessage的回应语句
+
+```
+# CongratMessage
+- 均联智行前瞻研发部祝您新年快乐！
+```
+
+![image-20201223115514027](%E5%BE%AE%E8%BD%AFVA%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95_%E6%96%B0.assets/image-20201223115514027.png)
+
+最后在LUIS portal中加入Congrat的intent和相应的示例utterance
+
 ## 在Azure China构建VA
 
 https://github.com/microsoft/botframework-solutions/tree/master/samples/csharp/assistants/virtual-assistant/VirtualAssistantSample中提供的VirtualAssistantSample仅仅适用于global Azure，不能直接使用这个例子来构建VA到Azure China。主要的问题在于：global Azure提供了web app bot这个专门为bot framework构建的web app，而Azure China尚未支持web app bot，这就会导致直接使用上述sample code中的deploy.ps1的脚本来部署会发生错误。为了解决这个问题，我们采用了一个迂回的解决方案，即直接在Azure China部署web app，再把bot framework代码部署到这个web app上。也就是说，VA是一个在bot framework的基础上填充了LUIS、QnA等能力的现成的解决方案，只不过这个解决方案只能在global Azure上使用。因此我们要做的是从头在web app上搭建bot framework这个骨架，再把LUIS、QnA、Speech等填充到骨架里。
@@ -510,6 +553,10 @@ VA安卓客户端的代码位于：https://github.com/tommyfan34/JPCCVirtualAssi
 应该可以直接编译运行。这个VA安卓客户端只适用于global Azure，因为它是通过directline speech和bot进行交互的，如果要使用direct line进行交互，需要修改代码。
 
 注意：在https://github.com/tommyfan34/JPCCVirtualAssistant/blob/main/MS_VA_AndroidClient/directlinespeech/src/main/assets/default_configuration.json这个文件，修改SpeechSubscriptionKey和SpeechRegion分别为Azure中订阅的speech service的订阅密钥和订阅区域
+
+# VA windows客户端
+
+
 
 # 一些常用命令
 
